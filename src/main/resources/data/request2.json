@@ -1,0 +1,14 @@
+{
+  "source": {
+    "id": 0,
+    "x_coordinate": 1,
+    "y_coordinate": 2
+  },
+  "destination": {
+    "id": 1,
+    "x_coordinate": 5,
+    "y_coordinate": 6
+  },
+  "sourceType": "RESTAURANT",
+  "destinationType": "CUSTOMER"
+}

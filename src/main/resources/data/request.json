@@ -1,0 +1,7 @@
+{
+  "source": 0,
+  "destination": 1,
+  "distance": 100,
+  "sourceType": "RESTAURANT",
+  "destinationType": "CUSTOMER"
+}
