@@ -80,7 +80,7 @@ public class BacktrackingAlgorithm implements Algorithm {
 
             if(visitedRestaurant[neighbour] && Constants.CUSTOMER.equalsIgnoreCase(neighbourType))
                 continue;
-            if(!visitedRestaurant[neighbour] && Constants.CUSTOMER.equalsIgnoreCase(neighbourType)){
+            if(!visitedRestaurant[neighbour] && Constants.RESTAURANT.equalsIgnoreCase(neighbourType)){
                 visitedRestaurant[neighbour] = true;
             }
             int flag2 = 0;
