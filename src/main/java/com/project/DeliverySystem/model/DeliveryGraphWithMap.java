@@ -32,27 +32,28 @@ public class DeliveryGraphWithMap implements Graph {
         This function is used to add an edge between two nodes
      */
     @Override
-    public void addEdge(int x, int y, int weight, String nodeAType, String nodeBType) throws NodeConnectionException {
-        String nodeA = String.valueOf(x)+nodeAType;
+    public void addEdge(int x, int y, int weight,
+                        String nodeAType, String nodeBType, int foodPreparationTime) throws NodeConnectionException {
+        String nodeA = String.valueOf(x)+nodeAType;  // x=0 and nodeType=RESTAURANT
         String nodeB = String.valueOf(y)+nodeBType;
         LOGGER.info(String.format("Connecting nodes %s and %s", nodeA, nodeB));
         try {
-            switch (nodeAType) {
-                case "Restaurant":
-                    if (directions.containsKey(nodeA)) {
-                        directions.get(nodeA).add(new PickUpNode(y, weight, nodeBType));
-                    } else {
-                        directions.put(nodeA, new ArrayList<>(Collections.nCopies(1, new PickUpNode(y, weight, nodeBType))));
-                    }
-                    break;
-                case "Customer":
-                    if (directions.containsKey(nodeA)) {
-                        directions.get(nodeA).add(new DeliveryNode(y, weight, nodeBType));
-                    } else {
-                        directions.put(nodeA, new ArrayList<>(Collections.nCopies(1, new DeliveryNode(y, weight, nodeBType))));
-                    }
-                    break;
+            if(Constants.RESTAURANT.equalsIgnoreCase(nodeBType)) {
+                if (directions.containsKey(nodeA)) {
+                    directions.get(nodeA).add(new PickUpNode(y, weight, nodeBType));
+                } else {
+                    directions.put(nodeA, new ArrayList<>(Collections.nCopies(1, new PickUpNode(y, weight, nodeBType))));
+                }
             }
+            else if(Constants.CUSTOMER.equalsIgnoreCase(nodeBType)){
+                if (directions.containsKey(nodeA)) {
+                    directions.get(nodeA).add(new DeliveryNode(y, weight, nodeBType));
+                } else {
+                    directions.put(nodeA, new ArrayList<>(Collections.nCopies(1, new DeliveryNode(y, weight, nodeBType))));
+                }
+            }
+            else
+                throw new NodeConnectionException("Not a valid junction.");
         }
         catch (Exception e){
             String errMessage = String.format("Error while connecting two nodes. %s",e.getMessage());
@@ -61,21 +62,22 @@ public class DeliveryGraphWithMap implements Graph {
         }
 
         try {
-            switch (nodeBType) {
-                case "Restaurant":
-                    if (directions.containsKey(nodeB)) {
-                        directions.get(nodeB).add(new PickUpNode(x, weight, nodeAType));
-                    } else {
-                        directions.put(nodeB, new ArrayList<>(Collections.nCopies(1, new PickUpNode(x, weight, nodeAType))));
-                    }
-                    break;
-                case "Customer":
-                    if (directions.containsKey(nodeB)) {
-                        directions.get(nodeB).add(new DeliveryNode(x, weight, nodeAType));
-                    } else {
-                        directions.put(nodeB, new ArrayList<>(Collections.nCopies(1, new DeliveryNode(x, weight, nodeAType))));
-                    }
+            if(Constants.RESTAURANT.equalsIgnoreCase(nodeAType)) {
+                if (directions.containsKey(nodeB)) {
+                    directions.get(nodeB).add(new PickUpNode(x, weight, nodeAType));
+                } else {
+                    directions.put(nodeB, new ArrayList<>(Collections.nCopies(1, new PickUpNode(x, weight, nodeAType))));
+                }
             }
+            else if(Constants.CUSTOMER.equalsIgnoreCase(nodeAType)){
+                if (directions.containsKey(nodeB)) {
+                    directions.get(nodeB).add(new DeliveryNode(x, weight, nodeAType));
+                } else {
+                    directions.put(nodeB, new ArrayList<>(Collections.nCopies(1, new DeliveryNode(x, weight, nodeAType))));
+                }
+            }
+            else
+                throw new NodeConnectionException("Not a valid junction.");
         }
         catch (Exception e){
             String errMessage = String.format("Error while connecting two nodes. %s",e.getMessage());

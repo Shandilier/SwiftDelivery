@@ -42,12 +42,13 @@ public class AdminController {
             int time = (int) coordinateDetails.get("time");
             String sourceType = (String) coordinateDetails.getOrDefault("sourceType", "");
             String destinationType = (String) coordinateDetails.getOrDefault("destinationType", "");
+            int foodPreparationTime = (int) coordinateDetails.getOrDefault("foodPreparationTime", 0);
 
             LOGGER.info("New nodes data received.");
             LOGGER.info(String.format(coordinateDetails.toString()));
 
             // Function call to connect nodes/junctions
-            deliveryGraphWithMap.addEdge(source, destination, time, sourceType, destinationType);
+            deliveryGraphWithMap.addEdge(source, destination, time, sourceType, destinationType, foodPreparationTime);
 
             // Adding new restaurant to the restaurant list
             if(sourceType.equals(Constants.RESTAURANT)){

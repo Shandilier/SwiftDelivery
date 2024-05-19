@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 
 
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Component
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -21,6 +20,13 @@ public class DeliveryNode implements Node {
     private int neighbour;
     private int weight;
     private String type;
+    private int foodPreparationTime;
+
+    public DeliveryNode(int neighbour, int weight, String type) {
+        this.neighbour = neighbour;
+        this.weight = weight;
+        this.type = type;
+    }
 
     public int getNeighbour() {
         return neighbour;
